@@ -7,8 +7,10 @@ import hello.core.member.MemberServiceImpl;
 
 public class MemberApp {
     public static void main(String[] args) {
-        MemberService memberService = new MemberServiceImpl();
+//        MemberService memberService = new MemberServiceImpl();  // AppConfig 생성 후 오류 발생
 
+        AppConfig appConfig = new AppConfig();
+        MemberService memberService = appConfig.memberService();
         Member member = new Member(1L, "memberA", Grade.VIP);
         memberService.join(member);
 
