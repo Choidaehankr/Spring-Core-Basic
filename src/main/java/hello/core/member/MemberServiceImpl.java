@@ -1,13 +1,19 @@
     // DIP 위반. MemberServiceImpl은 MemberRepository, MemoryMemberRepository 둘 다 의존한다.
 package hello.core.member;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+@Component
 public class MemberServiceImpl implements MemberService{
 
     private final MemberRepository memberRepository;
 
+    @Autowired
     public MemberServiceImpl(MemberRepository memberRepository) {
         this.memberRepository = memberRepository;
     }
+
     @Override
     public void join(Member member) {
         memberRepository.save(member);
