@@ -23,6 +23,7 @@ public class SecurityConfig {
                 .and()
                     .authorizeHttpRequests()
                     .requestMatchers("/", "/css/**", "/images/**", "/js/**", "/h2-console/**").permitAll()
+//                    .requestMatchers("/", "/css/**", "/images/**", "/js/**", "/h2-console/**").denyAll()
                     .requestMatchers("/api/v1/**").hasRole(Role.USER.name())
                     .anyRequest().authenticated()
                 .and()
