@@ -1,0 +1,41 @@
+language: java
+jdk:
+  - openjdk17
+
+branches:
+  only:
+    - master
+
+# Permission Denied
+before_install:
+  - chmod +x gradlew
+
+# Travis CI 서버의 Home
+cache:
+  directories:
+    - '$HOME/.m2/repository'
+    - '$HOME/.gradle'
+
+script: "./gradlew clean build"
+
+before_deploy:
+  - zip -r freelec-springboot-webservice *
+  - mkdir -p deploy
+  - mv freelec-springboot-webserivce.zip deply/freelec-springboot-webservice.zip
+
+deploy:
+  - provider: s3
+    access_key_id: $AWS_ACCESS_KEY
+    secret_access_key: $AWS_SECRET_KEY
+    bucket: freelec-springboot-cdh
+    region: ap-northeast-2
+    skip_cleanup: true
+    acl: private
+    local_dir: deploy
+    wait-until-deploy: true
+
+# CI 실행 완료 시 메일로 알람
+notifications:
+  email:
+    recipients:
+      - mnnm22@naver.com
