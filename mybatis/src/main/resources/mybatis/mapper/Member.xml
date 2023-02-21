@@ -7,4 +7,36 @@
   <insert id="save1" parameterType="example.mybatis.domain.Member">
     insert into member(username, age, gender, address) values (#{username}, #{age}, #{gender}, #{address})
   </insert>
+  
+  <!--  게시글 조회-->
+  <select id="findById" parameterType="long" resultType="example.mybatis.dto.MemberResponseDto">
+    select * from member where id = #{id};
+  </select>
+
+  <select id="findByUsername" parameterType="String" resultType="example.mybatis.dto.MemberResponseDto">
+    select * from member where username = #{username};
+  </select>
+
+  <update id="update" parameterType="example.mybatis.dto.MemberRequestDto">
+    update member
+    set username = #{username},
+        age = #{age},
+        address = #{address}
+    where
+        id = #{id}
+  </update>
+  
+  <delete id="deleteById" parameterType="long">
+    delete from member where id = #{id}
+  </delete>
+
+  <delete id="deleteAll">
+    delete from member
+  </delete>
+
+  <select id="findAll" resultType="example.mybatis.dto.MemberResponseDto">
+    select *
+    from member
+    order by id DESC
+  </select>
 </mapper>
