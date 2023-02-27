@@ -21,7 +21,18 @@
     update member
     set username = #{username},
         age = #{age},
-        address = #{address}
+        address = #{address}    
+    where
+        id = #{id}
+  </update>
+  
+  <update id="update3" parameterType="example.mybatis.dto.MemberRequestDto">
+    update member
+    <trim prefix="SET" suffixOverrides=",">
+      <if test="username != null">username=#{username},</if>
+      <if test="age != null">age=#{age},</if>
+      <if test="address != null">address=#{address},</if>
+    </trim>
     where
         id = #{id}
   </update>
